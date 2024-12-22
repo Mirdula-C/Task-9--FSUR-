@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useState } from 'react'; // import useState
 import ProductPage from './pages/ProductPage';
 import CartPage from './pages/CartPage';
@@ -37,16 +37,18 @@ function App() {
   };
 
   return (
-    <Routes>
-      <Route
-        path="/products"
-        element={<ProductPage cart={cart} addToCart={addToCart} />}
-      />
-      <Route
-        path="/cart"
-        element={<CartPage cart={cart} removeFromCart={removeFromCart} updateQuantity={updateQuantity} />}
-      />
-    </Routes>
+    <Router>
+      <Routes>
+        <Route
+          path="/products"
+          element={<ProductPage cart={cart} addToCart={addToCart} />}
+        />
+        <Route
+          path="/cart"
+          element={<CartPage cart={cart} removeFromCart={removeFromCart} updateQuantity={updateQuantity} />}
+        />
+      </Routes>
+    </Router>
   );
 }
 
