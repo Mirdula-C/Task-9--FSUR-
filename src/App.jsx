@@ -1,13 +1,11 @@
-import { Routes, Route } from 'react-router-dom';
-import { useState } from 'react'; // import useState
+import { Routes, Route, Navigate } from 'react-router-dom'; // Import Navigate for redirection
+import { useState } from 'react';
 import ProductPage from './pages/ProductPage';
 import CartPage from './pages/CartPage';
 
 function App() {
-  // State to hold the cart items
   const [cart, setCart] = useState([]);
 
-  // Function to add items to the cart
   const addToCart = (product) => {
     setCart((prevCart) => {
       const existingProduct = prevCart.find((item) => item.id === product.id);
@@ -21,14 +19,12 @@ function App() {
     });
   };
 
-  // Function to remove an item from the cart
   const removeFromCart = (productId) => {
     setCart((prevCart) => prevCart.filter((item) => item.id !== productId));
   };
 
-  // Function to update the quantity of an item in the cart
   const updateQuantity = (productId, newQuantity) => {
-    if (newQuantity <= 0) return; // Prevent quantity from going below 1
+    if (newQuantity <= 0) return;
     setCart((prevCart) =>
       prevCart.map((item) =>
         item.id === productId ? { ...item, quantity: newQuantity } : item
@@ -38,6 +34,8 @@ function App() {
 
   return (
     <Routes>
+      {/* Default route to redirect from "/" to "/products" */}
+      <Route path="/" element={<Navigate to="/products" />} />
       <Route
         path="/products"
         element={<ProductPage cart={cart} addToCart={addToCart} />}
